@@ -233,7 +233,7 @@ const getTemplate = ({
   <body>
       <div class="modal">
           <div class="modal-content">
-              <button class="btn-close-modal">
+              <button class="btn-close-modal" onclick="onCloseModal()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M13 1L1 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M1 1L4 4L7 7M13 13L10 10" stroke="white" stroke-width="2" stroke-linecap="round"
