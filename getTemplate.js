@@ -215,6 +215,7 @@ body {
 const getTemplate = ({
     username,
     userid,
+    sitekey
 }) => {
 
     return `<!DOCTYPE html>
@@ -283,7 +284,7 @@ const getTemplate = ({
           let captchaid;
           function onLoadCaptcha(){
             const params = {
-              "sitekey": "30bb580f-4ece-456f-9271-e89097df584d",
+              "sitekey": sitekey,
             };
             captchaid = hcaptcha.render("captcha", params);            
           }

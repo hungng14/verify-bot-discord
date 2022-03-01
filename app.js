@@ -64,6 +64,7 @@ app.get('/verify', (req, res) => {
                 getTemplate({
                     userid: parsed.id,
                     username: parsed.username,
+                    sitekey: config.hcaptchaSikekey
                 })
             )
         });
@@ -77,7 +78,7 @@ app.post('/verify', async(req, res) => {
         if (!userid) {
             throw new Error('Verification error')
         }
-        const verifyToken = await verify(config['hcaptcha-secret'], token)
+        const verifyToken = await verify(config.hcaptchaSecret, token)
         if (verifyToken.success) {
 
             const guild = await client.guilds.fetch(config.guild_id)
