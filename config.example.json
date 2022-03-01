@@ -1,0 +1,11 @@
+{
+    "client_secret": "p9jfvhApr2vPw3XOMz6YNKGWL7FS9PrH",
+    "client_id": "947770666655055952",
+    "redirect_uri": "https://73fd-2405-4802-282-3470-9412-e7c7-39f4-ccd5.ngrok.io/verify",
+    "google_secret": "6LefupEeAAAAAHfu8sN0XZ9YA3pZ2PqOOEIGIFl6",
+    "bot_token": "OTQ3NzcwNjY2NjU1MDU1OTUy.YhyGNw.LhPQi49d8QmIe-42PIz1ZscUYjg",
+    "guild_id": "947775949171220500",
+    "verifiedRole_id": "948136977381859338",
+    "logChannel": "947775949171220503",
+    "hcaptcha-secret": "0xFE91301a8bf713e72517Bb8DCA8041f82C0C396A"
+}
