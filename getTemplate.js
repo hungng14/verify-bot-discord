@@ -137,6 +137,10 @@ body {
   display: block;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .btn.disabled {
   background: #424242;
   color: #383838;
@@ -210,6 +214,12 @@ body {
     color: #D4D7E1;
     margin-bottom: 32px;
 }
+
+#redirect-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
 </style>`
 
 const getTemplate = ({
@@ -248,6 +258,7 @@ const getTemplate = ({
                       congratulations!
                   </h3>
                   <h5 class="font-casual">You have successfully verified the server membership</h5>
+                  <h5 class="font-casual" id="redirect-text">Window will be redirected to Discord in 3s</h5>
                   <button class="btn" type="button" onclick="onCloseModal()">OK</button>
               </div>
           </div>
@@ -258,20 +269,23 @@ const getTemplate = ({
                   <img src="/assets/images/GF.png" alt="">
               </div>
               <h1>Verify your account</h1>
-              <h4 class="font-casual">This server requires you to pass a captcha to gain access to their server</h4>
+              <h4 class="font-casual not-verify">This server requires you to pass a captcha to gain access to their server</h4>
               <div class="small-text font-casual">
                   Logged in as <span class="green-text">${username || ''}</span>. Not you?
               </div>
-              <div class="captcha">
+              <div class="captcha not-verify">
                   <div id='captcha' data-error-callback="onError" data-callback="onChange"></div>
               </div>
-              <div class="font-casual green-text">By verifying you agree to our terms of service and privacy policy</div>
+              <div class="font-casual green-text not-verify">By verifying you agree to our terms of service and privacy policy</div>
               <div class="wrapper-submit">
-                  <button class="btn disabled" type="button" id="btn-submit" disabled onclick="onSubmit()">
+                  <button class="btn disabled not-verify" type="button" id="btn-submit" disabled onclick="onSubmit()">
                     <span>
                       <img src="/assets/images/loading.svg" width="25px" height="25px" />
                       Submit
                     </span>
+                  </button>
+                  <button class="btn hidden" type="button" id="btn-open-link" onclick="onOpenDiscord()">
+                    Open Discord
                   </button>
               </div>
               <div class="error danger-text font-casual"></div>
@@ -309,7 +323,7 @@ const getTemplate = ({
                   console.log('error', error)
               }
           }
-  
+          let linkDiscord;
           async function onSubmit() {
               const errorElm = document.querySelector('.error')
               const submitBtn = document.querySelector('#btn-submit')
@@ -329,9 +343,32 @@ const getTemplate = ({
                   })
                   const result = await res.json()
                   if (result.status === 200) {
-                      const modalElm = document.querySelector('.modal')
-                      modalElm.classList.add('open')
-                      errorElm.classList.remove('open')
+                      linkDiscord = result.data
+                      submitBtn.classList.add('hidden')
+                      const nodesNotVerifyElms = document.querySelectorAll('.not-verify')
+                      nodesNotVerifyElms.forEach(elm => {
+                        elm.classList.add('hidden')
+                      })
+                      const openLinkBtn = document.querySelector('#btn-open-link')
+                      const h1Elm = document.querySelector('h1')
+                      h1Elm.innerHTML = 'Verify Successfully!'
+                      openLinkBtn.classList.remove('hidden')
+                      // const modalElm = document.querySelector('.modal')
+                      // modalElm.classList.add('open')
+                      // errorElm.classList.remove('open')
+                      // const redirectTextElm = document.querySelector('#redirect-text');
+                      // let countdown = 3;
+                      // const interval = setInterval(() => {
+                      //   if(redirectTextElm) {
+                      //     redirectTextElm.innerHTML = 'Window will be redirected to Discord in ' + countdown + 's';
+                      //   }
+                      //   countdown -= 1;
+                      //   if(countdown === 0) {
+                      //     clearInterval(interval)
+                      //     window.location.href = result.data
+                      //   }
+                      // }, 1000)
+                      
                   } else {
                       errorElm.innerHTML = 'Oops. Something went wrong!'
                       errorElm.classList.add('open')
@@ -344,6 +381,12 @@ const getTemplate = ({
               } finally {
                 submitBtn.classList.remove('loading')
               }
+          }
+
+          function onOpenDiscord() {
+            if(linkDiscord) {
+              window.location.href = linkDiscord
+            }
           }
   
           function onCloseModal() {
