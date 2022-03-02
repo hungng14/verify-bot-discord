@@ -284,7 +284,7 @@ const getTemplate = ({
           let captchaid;
           function onLoadCaptcha(){
             const params = {
-              "sitekey": sitekey,
+              "sitekey": ${sitekey},
             };
             captchaid = hcaptcha.render("captcha", params);            
           }
