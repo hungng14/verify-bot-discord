@@ -278,11 +278,11 @@ const getTemplate = ({
           </div>
       </div>
   
-      <script src="https://js.hcaptcha.com/1/api.js?onload=onLoadCaptcha" async defer></script>
+      <script src="https://js.hcaptcha.com/1/api.js?onload=onLoadCaptcha&render=explicit" async defer></script>
       <script type="text/javascript">
           let mytoken = '';
           let captchaid;
-          function onLoadCaptcha(){
+          var onLoadCaptcha = function(){
             const params = {
               "sitekey": ${sitekey},
             };
