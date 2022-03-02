@@ -318,7 +318,7 @@ const getTemplate = ({
                   onResetCaptcha()
                   const body = JSON.stringify({
                       token: mytoken,
-                      userid: ${userid}
+                      userid: '${userid}'
                   })
                   const res = await fetch('/verify', {
                       method: 'POST',
